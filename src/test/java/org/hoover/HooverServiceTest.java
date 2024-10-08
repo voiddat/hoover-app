@@ -90,6 +90,42 @@ public class HooverServiceTest {
     }
 
     @Test
+    public void shouldFailBecauseRoomSizeXNegative() {
+        HooverInputDTO hooverInputDTO = new HooverInputDTO(
+                new int[]{-1,5},
+                new int[]{1,4},
+                new int[][]{},
+                ""
+        );
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> hooverService.cleanTheRoom(hooverInputDTO));
+    }
+
+    @Test
+    public void shouldFailBecauseCoordsYNegative() {
+        HooverInputDTO hooverInputDTO = new HooverInputDTO(
+                new int[]{5,5},
+                new int[]{1,-1},
+                new int[][]{},
+                ""
+        );
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> hooverService.cleanTheRoom(hooverInputDTO));
+    }
+
+    @Test
+    public void shouldFailBecausePatchXNegative() {
+        HooverInputDTO hooverInputDTO = new HooverInputDTO(
+                new int[]{5,5},
+                new int[]{1,-1},
+                new int[][]{new int[]{-1,1}},
+                ""
+        );
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> hooverService.cleanTheRoom(hooverInputDTO));
+    }
+
+    @Test
     public void shouldProperlyCleanTheRoomWithDrivingIntoTheWall() {
         HooverInputDTO hooverInputDTO = new HooverInputDTO(
                 new int[]{5,5},

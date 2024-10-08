@@ -27,6 +27,10 @@ public class HooverService {
         if (hooverInputDTO.coords().x() > hooverInputDTO.roomSize().x() || hooverInputDTO.coords().y() > hooverInputDTO.roomSize().y()) {
             throw new IllegalArgumentException("Error! Incorrect initial position of the hoover - x must be less or equal to roomSize.x and y must be less or equal to roomSize.y");
         }
+
+        if (hooverInputDTO.coords().x() < 0 || hooverInputDTO.coords().y() < 0 || hooverInputDTO.patches().stream().anyMatch(point -> point.x() < 0 || point.y() < 0)) {
+            throw new IllegalArgumentException("Error! Coordinates must be not negative");
+        }
     }
 
     private int cleanIfDirty(HooverInputDTO hooverInputDTO, Point coords, int patches) {
